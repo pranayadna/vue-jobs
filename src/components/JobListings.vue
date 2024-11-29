@@ -1,5 +1,16 @@
 <script>
+import jobData from "@/jobs.json";
+import JobListing from "./JobListing.vue";
+
 export default {
+    data() {
+        return {
+            jobs: jobData
+        }
+    },
+    components: {
+        JobListing
+    },
     props: {
         limit: Number,
         showButton: {
@@ -8,21 +19,6 @@ export default {
         }
     }
 }
-
-// import jobData from "@/jobs.json";
-// import JobListing from "./JobListing.vue";
-// import { defineProps } from "vue";
-// import { ref } from "vue";
-
-// const jobs = ref(jobData);
-
-// defineProps({
-//     limit: Number,
-//     showButton: {
-//         type: Boolean,
-//         default: false
-//     }
-// });
 </script>
 
 <template>
