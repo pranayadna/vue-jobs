@@ -1,5 +1,13 @@
-<script setup>
-import logo from "@/assets/img/logo.png";
+<script>
+import logo from "../assets/img/logo.png";
+
+export default {
+  data() {
+    return {
+      logo: logo
+    }
+  }
+}
 </script>
 
 <template>
