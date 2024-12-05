@@ -1,15 +1,25 @@
 <script>
-import jobData from "@/jobs.json";
 import JobListing from "@/components/JobListing.vue";
+import axios from "axios";
 
 export default {
     data() {
         return {
-            jobs: jobData
+            jobs: []
         }
     },
     components: {
         JobListing
+    },
+    mounted: async function () {
+        try {
+            const resp = await axios.get("http://localhost:8000/jobs");
+            this.jobs = resp.data;
+        } catch (error) {
+            console.log("Error fetching jobs data", error);
+
+        }
+
     }
 }
 </script>

@@ -1,11 +1,14 @@
 <script>
-import jobData from "@/jobs.json";
+import axios from "axios";
 import JobListing from "./JobListing.vue";
 
 export default {
     data() {
         return {
-            jobs: jobData
+            state: {
+                jobs: [],
+                isLoading: true
+            }
         }
     },
     components: {
@@ -17,7 +20,19 @@ export default {
             type: Boolean,
             default: false
         }
-    }
+    },
+    mounted:
+        async function () {
+            try {
+                const resp = await axios.get("http://localhost:8000/jobs");
+                this.state.jobs = resp.data;
+            } catch (error) {
+                console.log("Error fetching jobs data", error);
+            } finally {
+                this.state.isLoading = false;
+            }
+
+        }
 }
 </script>
 
@@ -28,7 +43,7 @@ export default {
                 Browse Jobs
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <JobListing v-for="job in jobs.slice(0, limit || jobs.length)" :key="job.id" :job="job" />
+                <JobListing v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job" />
             </div>
         </div>
     </section>
